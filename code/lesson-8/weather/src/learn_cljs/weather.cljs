@@ -12,7 +12,7 @@
                                            :tomorrow {:label "Tomorrow"
                                                       :value nil}}}))
 
-(def api-key "API_KEY")
+(def api-key "3b4af102002d77f499ac97aef66f9935")
 
 (defn handle-response [resp]
   (let [today (get-in resp ["list" 0 "main" "temp"])
@@ -22,14 +22,14 @@
     (swap! app-state
            update-in [:temperatures :tomorrow :value] (constantly tomorrow))))
 
-
 (defn get-forecast! []
   (let [postal-code (:postal-code @app-state)]
-    (ajax/GET "http://api.openweathermap.org/data/2.5/forecast"
+    (ajax/GET "http://api.openweathermap.org/data/2.5/weather"
       {:params {"q" postal-code
-                "units" "imperial" ;; alternatively, use "metric"
+                "units" "imperial"
                 "appid" api-key}
-       :handler handle-response})))
+       :handler handle-response}))
+       )
 
 (defn title []
   [:h1 (:title @app-state)])
