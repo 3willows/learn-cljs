@@ -26,10 +26,13 @@
   (let [postal-code (:postal-code @app-state)]
     (ajax/GET "http://api.openweathermap.org/data/2.5/weather"
       {:params {"q" postal-code
-                "units" "imperial"
+                "units" "metric"
                 "appid" api-key}
-       :handler (fn [response]
-                  (handle-response response))})))
+        :handler (fn [response]
+                  (handle-response response)
+                )
+      } 
+       )))
 
 (defn title []
   [:h1 (:title @app-state)])
